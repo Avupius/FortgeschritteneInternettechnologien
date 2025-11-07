@@ -10,7 +10,11 @@ import java.io.IOException;
 public class RepeatTag extends BodyTagSupport {
 
     private int times = 0;
-    private int count = 0;
+    //private int count = 0;
+
+//    public void setTimes(int times) {
+//        this.times = times;
+//    }
 
     public void setTimes(String timesStr ){
         try{
@@ -22,29 +26,24 @@ public class RepeatTag extends BodyTagSupport {
 
     @Override
     public int doStartTag() throws JspException {
-        count = 0;
+        //count = 0;
         if(times <= 0){
             return SKIP_BODY;
         }
-        return EVAL_BODY_BUFFERED;
+        return EVAL_BODY_INCLUDE;
     }
 
     @Override
     public int doAfterBody() throws JspException {
-        count++; // Wir haben den Body einmal ausgeführt
-        if (count < times) {
-            try {
-                // Body-Inhalt an die Ausgabe anhängen
-                getBodyContent().writeOut(getPreviousOut());
-            } catch (IOException e) {
-                throw new JspException("Error in RepeatTag", e);
-            }
-            // Body erneut auswerten
+        //count++;
+        if (times > 1) {
+
+            times--;
             return EVAL_BODY_AGAIN;
         } else {
-            // Fertig, Body nicht mehr wiederholen
             return SKIP_BODY;
         }
+
     }
 
 

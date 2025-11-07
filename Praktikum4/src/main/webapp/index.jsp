@@ -12,11 +12,11 @@
     <p>Dies ist ein wiederholter Text!</p>
 </ct:repeat>
 
-<p><fit:repeat times="0">wird times mit 0 angezeigt?</fit:repeat></p>
+<p><ct:repeat times="0">wird times mit 0 angezeigt?</ct:repeat></p>
 
-<p><fit:repeat times="-3">wird times mit -3 angezeigt?</fit:repeat></p>
+<p><ct:repeat times="-3">wird times mit -3 angezeigt?</ct:repeat></p>
 
-<p><fit:repeat times="abc">wird times mit abc angezeigt?</fit:repeat></p>
+<p><ct:repeat times="abc">wird times mit abc angezeigt?</ct:repeat></p>
 
 
 <h1>Auswertung</h1>

@@ -9,14 +9,14 @@
 
 <h2>Bitte geben Sie Ihre Daten ein:</h2>
 
-<form action="formData.jsp" method="post">
+<form action="showData.jsp" method="post">
     Name: <input type="text" name="name"><br/>
     Stadt: <input type="text" name="city"><br/>
     Hobbys:<br/>
     <input type="checkbox" name="hobby" value="Lesen"> Lesen<br/>
     <input type="checkbox" name="hobby" value="Sport"> Sport<br/>
     <input type="checkbox" name="hobby" value="Reisen"> Reisen<br/><br/>
-    <input type="submit" value="Absenden">
+    <button type="submit">Absenden</button>
 </form>
 
 <a href="index.jsp">Zurück zum Repeat</a>
