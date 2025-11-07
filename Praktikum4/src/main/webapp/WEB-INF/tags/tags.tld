@@ -17,7 +17,6 @@
             <name>times</name>
             <required>true</required>
             <rtexprvalue>true</rtexprvalue>
-            <type>int</type>
         </attribute>
     </tag>
 </taglib>

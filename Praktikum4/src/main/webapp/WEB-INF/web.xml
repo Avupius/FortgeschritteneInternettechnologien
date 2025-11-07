@@ -4,11 +4,4 @@
          xsi:schemaLocation="https://jakarta.ee/xml/ns/jakartaee https://jakarta.ee/xml/ns/jakartaee/web-app_6_0.xsd"
          version="6.0">
 
-    <display-name>RepeatTag</display-name>
-
-    <taglib>
-        <taglib-uri>http://beispiel3123.de/tags/repeat</taglib-uri>
-        <taglib-location>/WEB-INF/tags/tags.tld</taglib-location>
-    </taglib>
-
 </web-app>
