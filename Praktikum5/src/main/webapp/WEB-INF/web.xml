@@ -4,26 +4,6 @@
          xsi:schemaLocation="https://jakarta.ee/xml/ns/jakartaee https://jakarta.ee/xml/ns/jakartaee/web-app_6_0.xsd"
          version="6.0">
 
-    <context-param>
-        <param-name>validUser</param-name>
-        <param-value>admin</param-value>
-    </context-param>
-
-    <context-param>
-        <param-name>validPassword</param-name>
-        <param-value>1234</param-value>
-    </context-param>
-
-    <context-param>
-        <param-name>hashPassword</param-name>
-        <param-value>$5$MySecret$u0WjO1xvIbc03ZRA5OfV1V/6aKC03HPykJ9KGY3QL59</param-value>
-    </context-param>
-
-    <context-param>
-        <param-name>salt</param-name>
-        <param-value>$5$MySecret</param-value>
-    </context-param>
-
     <servlet>
         <servlet-name>LoginServlet</servlet-name>
         <servlet-class>de.fhswf.praktikum5_2.LoginServlet</servlet-class>

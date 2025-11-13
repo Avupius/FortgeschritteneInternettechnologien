@@ -3,7 +3,6 @@ package de.fhswf.praktikum5_2;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.PersistenceUnit;
-import jakarta.servlet.ServletContext;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -23,15 +22,16 @@ public class LoginServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
-        String user = req.getParameter("username");
-        String password = req.getParameter("password");
+        String InputUser = req.getParameter("username");
+        String InputPassword = req.getParameter("password");
 
         resp.setContentType("text/html;charset=UTF-8");
         PrintWriter out = resp.getWriter();
+
         out.println("<!DOCTYPE html>");
         out.println("<html><body>");
 
-        if (user == null || password == null || user.isEmpty() || password.isEmpty()) {
+        if (InputUser == null || InputPassword == null || InputUser.isEmpty() || InputPassword.isEmpty()) {
             out.println("<html><head><title>Login Fehler</title></head><body>");
             out.println("<h3>Fehler: Benutzername oder Passwort fehlt!</h3>");
             return;
@@ -47,7 +47,7 @@ public class LoginServlet extends HttpServlet {
 
         try {
             // Benutzer über Persistence Layer laden
-            Account acc = em.find(Account.class, user);
+            Account acc = em.find(Account.class, InputUser);
 
             out.println("<h2>Login Ergebnis</h2>");
 
@@ -58,11 +58,11 @@ public class LoginServlet extends HttpServlet {
             }
 
             // Salt + gespeicherten Hash aus DB
-            String storedHash = acc.getPassword();
+            String storedHash = acc.getHashPassword();
             String storedSalt = acc.getSalt();
 
             // Hashing
-            String hashedInput = Crypt.crypt(password, storedSalt);
+            String hashedInput = Crypt.crypt(InputPassword, "$5$" + storedSalt);
 
             // Prüfung
             if (hashedInput.equals(storedHash)) {

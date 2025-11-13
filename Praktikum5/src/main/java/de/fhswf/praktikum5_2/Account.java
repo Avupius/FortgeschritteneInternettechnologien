@@ -14,6 +14,7 @@ public class Account {
 
     private String password;
     private String salt;
+    private String hash_password;
 
     public Account() {}
 
@@ -27,5 +28,9 @@ public class Account {
 
     public String getSalt() {
         return salt;
+    }
+
+    public String getHashPassword() {
+        return hash_password;
     }
 }
