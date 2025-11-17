@@ -4,7 +4,7 @@
     <persistence-unit name="AccountPU" transaction-type="RESOURCE_LOCAL">
         <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
 
-        <class>de.fhswf.praktikum5_2.Account</class>
+        <class>de.fhswf.praktikum6.Account</class>
 
         <properties>
             <property name="jakarta.persistence.jdbc.url" value="jdbc:mariadb://localhost:3306/accountdb"/>

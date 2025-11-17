@@ -1,4 +1,4 @@
-package de.fhswf.praktikum5_2;
+package de.fhswf.praktikum6;
 
 
 import jakarta.persistence.Entity;

@@ -13,4 +13,9 @@
         <servlet-name>LoginServlet</servlet-name>
         <url-pattern>/login</url-pattern>
     </servlet-mapping>
+
+    <context-param>
+        <param-name>persistenceUnitName</param-name>
+        <param-value>AccountPU</param-value>
+    </context-param>
 </web-app>

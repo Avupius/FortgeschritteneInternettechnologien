@@ -1,6 +1,7 @@
-package de.fhswf.praktikum5_2;
+package de.fhswf.praktikum6;
 
-
+import jakarta.persistence.EntityManagerFactory;
+import jakarta.persistence.PersistenceUnit;
 import jakarta.servlet.ServletContext;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
