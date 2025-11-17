@@ -1,7 +1,6 @@
 package de.fhswf.praktikum6;
 
-import jakarta.persistence.EntityManagerFactory;
-import jakarta.persistence.PersistenceUnit;
+
 import jakarta.servlet.ServletContext;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -20,10 +19,9 @@ public class LoginServlet extends HttpServlet {
 
     /**
      * Initialisierung des Servlets
-     * @throws ServletException
      */
     @Override
-    public void init() throws ServletException {
+    public void init() {
         ServletContext context = getServletContext();
         String puName = context.getInitParameter("persistenceUnitName");
         if (puName == null) {
@@ -42,8 +40,9 @@ public class LoginServlet extends HttpServlet {
      */
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
-        String InputUser = req.getParameter("username");
-        String InputPassword = req.getParameter("password");
+        String inputUser = req.getParameter("username");
+        String inputPassword = req.getParameter("password");
+        String inputMode = req.getParameter("mode");
 
         resp.setContentType("text/html;charset=UTF-8");
         PrintWriter out = resp.getWriter();
@@ -51,9 +50,9 @@ public class LoginServlet extends HttpServlet {
         out.println("<!DOCTYPE html>");
         out.println("<html><body>");
 
-        if (InputUser == null || InputPassword == null || InputUser.isEmpty() || InputPassword.isEmpty()) {
+        if (inputUser == null || inputPassword == null || inputMode == null|| inputUser.isEmpty() || inputPassword.isEmpty() || inputMode.isEmpty()) {
             out.println("<html><head><title>Login Fehler</title></head><body>");
-            out.println("<h3>Fehler: Benutzername oder Passwort fehlt!</h3>");
+            out.println("<h3>Fehler: Benutzername oder Passwort oder Weiterleitung fehlt!</h3>");
             return;
         }
 
@@ -67,13 +66,21 @@ public class LoginServlet extends HttpServlet {
         /**
          * Passwortprüfung
          */
-        boolean loginSuccess = accountManager.checkPassword(InputUser, InputPassword);
+        boolean loginSuccess = accountManager.checkPassword(inputUser, inputPassword);
+
         if (loginSuccess) {
             HttpSession session = req.getSession();
             session.setAttribute("loggedIn", true);
+            session.setAttribute("username", inputUser);
 
-            out.println("<h3>Login erfolgreich!</h3>");
-            out.println("<p>Benutzer: " + InputUser + "</p>");
+            if ("forward".equals(inputMode)) {
+                resp.sendRedirect(req.getContextPath() + "/welcome.jsp");
+            } else if ("redirect".equals(inputMode)) {
+                getServletContext().getRequestDispatcher("/welcome.jsp").forward(req, resp);
+
+            }
+
+
         } else {
             out.println("<h3>Login fehlgeschlagen: Passwort falsch!</h3>");
         }
