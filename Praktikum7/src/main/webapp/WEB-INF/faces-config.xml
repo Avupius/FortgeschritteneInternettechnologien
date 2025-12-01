@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<faces-config xmlns="https://jakarta.ee/xml/ns/jakartaee"
+              xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+              xsi:schemaLocation="https://jakarta.ee/xml/ns/jakartaee https://jakarta.ee/xml/ns/jakartaee/web-facesconfig_4_0.xsd"
+              version="4.0">
+
+    <navigation-rule>
+
+        <from-view-id>/pages/home.xhtml</from-view-id>
+
+        <navigation-case>
+            <from-outcome>contact</from-outcome>
+            <to-view-id>/pages/contact.xhtml</to-view-id>
+        </navigation-case>
+
+        <navigation-case>
+            <from-outcome>login</from-outcome>
+            <to-view-id>/pages/login.xhtml</to-view-id>
+        </navigation-case>
+
+        <navigation-case>
+            <from-outcome>categories</from-outcome>
+            <to-view-id>/pages/categories.xhtml</to-view-id>
+        </navigation-case>
+
+    </navigation-rule>
+
+    <navigation-rule>
+
+        <from-view-id>/pages/login.xhtml</from-view-id>
+
+        <navigation-case>
+            <from-outcome>contact</from-outcome>
+            <to-view-id>/pages/contact.xhtml</to-view-id>
+        </navigation-case>
+
+        <navigation-case>
+            <from-outcome>login</from-outcome>
+            <to-view-id>/pages/login.xhtml</to-view-id>
+        </navigation-case>
+
+        <navigation-case>
+            <from-outcome>categories</from-outcome>
+            <to-view-id>/pages/categories.xhtml</to-view-id>
+        </navigation-case>
+
+        <navigation-case>
+            <from-outcome>failure</from-outcome>
+            <to-view-id>/pages/login.xhtml</to-view-id>
+        </navigation-case>
+
+        <navigation-case>
+            <from-outcome>success</from-outcome>
+            <to-view-id>/pages/greeting.xhtml</to-view-id>
+        </navigation-case>
+
+    </navigation-rule>
+
+
+    <navigation-rule>
+
+        <from-view-id>/pages/categories.xhtml</from-view-id>
+
+        <navigation-case>
+            <from-outcome>contact</from-outcome>
+            <to-view-id>/pages/contact.xhtml</to-view-id>
+        </navigation-case>
+
+        <navigation-case>
+            <from-outcome>login</from-outcome>
+            <to-view-id>/pages/login.xhtml</to-view-id>
+        </navigation-case>
+
+        <navigation-case>
+            <from-outcome>categories</from-outcome>
+            <to-view-id>/pages/categories.xhtml</to-view-id>
+        </navigation-case>
+
+        <navigation-case>
+            <from-outcome>select</from-outcome>
+            <to-view-id>/pages/products.xhtml</to-view-id>
+        </navigation-case>
+
+    </navigation-rule>
+
+    <navigation-rule>
+
+        <from-view-id>/pages/greeting.xhtml</from-view-id>
+
+        <navigation-case>
+            <from-outcome>contact</from-outcome>
+            <to-view-id>/pages/contact.xhtml</to-view-id>
+        </navigation-case>
+
+        <navigation-case>
+            <from-outcome>categories</from-outcome>
+            <to-view-id>/pages/categories.xhtml</to-view-id>
+        </navigation-case>
+
+        <navigation-case>
+            <from-outcome>home</from-outcome>
+            <to-view-id>/pages/home.xhtml</to-view-id>
+        </navigation-case>
+
+    </navigation-rule>
+
+    <navigation-rule>
+
+        <from-view-id>/pages/contact.xhtml</from-view-id>
+
+        <navigation-case>
+            <from-outcome>contact</from-outcome>
+            <to-view-id>/pages/contact.xhtml</to-view-id>
+        </navigation-case>
+
+        <navigation-case>
+            <from-outcome>categories</from-outcome>
+            <to-view-id>/pages/categories.xhtml</to-view-id>
+        </navigation-case>
+
+        <navigation-case>
+            <from-outcome>login</from-outcome>
+            <to-view-id>/pages/login.xhtml</to-view-id>
+        </navigation-case>
+
+    </navigation-rule>
+
+    <navigation-rule>
+
+        <from-view-id>/pages/products.xhtml</from-view-id>
+
+        <navigation-case>
+            <from-outcome>contact</from-outcome>
+            <to-view-id>/pages/contact.xhtml</to-view-id>
+        </navigation-case>
+
+        <navigation-case>
+            <from-outcome>categories</from-outcome>
+            <to-view-id>/pages/categories.xhtml</to-view-id>
+        </navigation-case>
+
+        <navigation-case>
+            <from-outcome>login</from-outcome>
+            <to-view-id>/pages/login.xhtml</to-view-id>
+        </navigation-case>
+
+    </navigation-rule>
+
+    <navigation-rule>
+
+        <from-view-id>/pages/product.xhtml</from-view-id>
+
+        <navigation-case>
+            <from-outcome>products</from-outcome>
+            <to-view-id>/pages/products.xhtml</to-view-id>
+        </navigation-case>
+
+        <navigation-case>
+            <from-outcome>contact</from-outcome>
+            <to-view-id>/pages/contact.xhtml</to-view-id>
+        </navigation-case>
+
+        <navigation-case>
+            <from-outcome>categories</from-outcome>
+            <to-view-id>/pages/categories.xhtml</to-view-id>
+        </navigation-case>
+
+        <navigation-case>
+            <from-outcome>login</from-outcome>
+            <to-view-id>/pages/login.xhtml</to-view-id>
+        </navigation-case>
+
+    </navigation-rule>
+
+
+    <application>
+        <locale-config>
+            <default-locale>de_DE</default-locale>
+        </locale-config>
+
+        <!-- falls du spÃ¤ter i18n willst -->
+        <resource-bundle>
+            <base-name>messages</base-name>
+            <var>messages</var>
+        </resource-bundle>
+    </application>
+
+    <factory/>
+    <lifecycle/>
+</faces-config>

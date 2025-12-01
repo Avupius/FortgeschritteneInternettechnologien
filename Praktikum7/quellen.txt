@@ -1,0 +1,10 @@
+Downloads:
+
+http://myfaces.apache.org/
+https://facelets.dev.java.net/
+http://www.oracle.com/technology/products/ias/toplink/jpa/download.html
+http://dev.mysql.com/downloads/connector/j/3.0.html
+
+Online-Artikel:
+
+http://www.javaworld.com/javaworld/jw-07-2004/jw-0719-jsf.html (Die Vorlage für die Kataloganwendung)
