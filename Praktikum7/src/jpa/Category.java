@@ -1,10 +1,7 @@
 package jpa;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Iterator;
-import java.util.Set;
+import java.util.*;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
@@ -22,10 +19,22 @@ public class Category implements Serializable
 
    private String description;
 
-   @ManyToMany(mappedBy = "categoryCollection")
-   private Set<Product> productCollection;
+//   @ManyToMany(mappedBy = "categoryCollection")
+//   private Set<Product> productCollection;
+
+    @ManyToMany(mappedBy = "categories")
+    private Set<Product> products = new HashSet<>();
+
+    public Set<Product> getProducts() {
+        return products;
+    }
+
+    public void setProducts(Set<Product> products) {
+        this.products = products;
+    }
 
    private static final long serialVersionUID = 1L;
+
 
    public Category()
    {
@@ -62,39 +71,21 @@ public class Category implements Serializable
       this.description = description;
    }
 
-   /**
-    * The method <code>getProductCollection()</code> returns a
-    * Collection object that is incompatible with JSF.
-    *
-    * @return collection of product objects.
-    */
-   public Collection<Product> getProducts()
-   {
-      Collection<Product> c = new ArrayList<Product>();
-      
-      for (Iterator iter = getProductCollection().iterator(); iter.hasNext();)
-      {
-         Product product = (Product) iter.next();
-         c.add(product);
-//         System.out.println(product.getName());
-      }
-      
-      return c;
-   }
 
-   public Set<Product> getProductCollection()
-   {
-      return this.productCollection;
-   }
 
-   public void setProductCollection(Set<Product> productCollection)
-   {
-      this.productCollection = productCollection;
-   }
+//   public Set<Product> getProductCollection()
+//   {
+//      return this.productCollection;
+//   }
+//
+//   public void setProductCollection(Set<Product> productCollection)
+//   {
+//      this.productCollection = productCollection;
+//   }
 
    public void addProduct(Product product)
    {
-      Set<Product> products = getProductCollection();
+      Set<Product> products = getProducts();
       if (!products.contains(product))
       {
          products.add(product);

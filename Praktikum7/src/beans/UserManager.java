@@ -18,11 +18,10 @@ import jakarta.inject.Named;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.EntityTransaction;
-import jakarta.persistence.Persistence;
 import jakarta.persistence.Query;
 
 import jpa.User;
-import static util.DigestUtils.md5;
+import org.apache.commons.codec.digest.Crypt;
 
 @Named("userManager")
 @SessionScoped
@@ -41,23 +40,30 @@ public class UserManager implements Serializable {
 
 	public String login() {
 		String outcome = "failure";
-		if (current.getUsername() != null && current.getUsername().length() > 0
+		if (current.getUsername() != null && !current.getUsername().isEmpty()
 				&& current.getPassword() != null
-				&& current.getPassword().length() > 0) {
+				&& !current.getPassword().isEmpty()) {
 			EntityManagerFactory factory = catalogManagerFactory.getEntityManagerFactory();
 			EntityManager manager = factory.createEntityManager();
 			try {
 
                 Query query = manager
-                        .createQuery("SELECT u FROM User u where u.username = :username and u.password = :password");
+                        .createQuery("SELECT u FROM User u where u.username = :username");
                 query.setParameter("username", current.getUsername());
-                query.setParameter("password", (current.getPassword()));
-                List results = query.getResultList();
+                List<User> results = query.getResultList();
 
                 if (!results.isEmpty()) {
-                    loggedIn = true;
-                    current = (User) results.get(0);
-                    outcome = "success";
+
+                    User dbUser = results.get(0);
+
+                    String storedHash = dbUser.getHashedPassword();
+
+                    String candidateHash = Crypt.crypt(current.getPassword(), storedHash);
+
+                    if (candidateHash.equals(storedHash)) {}
+                        loggedIn = true;
+                        current = dbUser;
+                        outcome = "success";
                 }
             } finally {
                 manager.close();

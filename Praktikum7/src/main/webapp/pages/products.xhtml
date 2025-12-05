@@ -16,43 +16,66 @@
 		<ui:define name="body">
 			
 			<h:form id="products">
+
+            <h:panelGroup rendered="#{userManager.loggedIn}">
+                <h:commandButton value="New Product"
+                                 actionListener="#{productManager.createNew}" />
+                <br/><br/>
+            </h:panelGroup>
 			
 			<h2>
 				<h:outputText>List of Products in Category </h:outputText>
 				<h:outputText value="#{categoryManager.current.name}" />
 			</h2>
-			
-			<p:dataTable style="border: 1px;" id="producttable" value="#{categoryManager.current.products}"
-				var="product">
-			<p:column>
-				<f:facet name="header">
-					<h:outputText value="Id" />
-				</f:facet>
-				<h:outputText value="#{product.id}" />
-			</p:column>
-			<p:column>
-				<f:facet name="header">
-					<h:outputText value="Name" />
-				</f:facet>
-				<h:outputText value="#{product.name}" />
-			<p:column>
-				<f:facet name="header">
-					<h:outputText value="Price" />
-				</f:facet>
-				<h:outputText value="#{product.price}" />
-			</p:column>
-			<p:column>
-				<f:facet name="header">
-					<h:outputText value="" />
-				</f:facet>
-				<h:commandLink value="View Details ..." immediate="true"
-					actionListener="#{productManager.select}" action="select">
-					<f:param name="selectedId" value="#{product.id}" />
-				</h:commandLink>
-			</p:column>
-			</p:dataTable>
-			
-			</h:form>
+                <p:dataTable style="border: 1px;" id="producttable"
+                             value="#{categoryManager.current.products}"
+                             var="product">
+
+                    <p:column>
+                        <f:facet name="header">
+                            <h:outputText value="Id" />
+                        </f:facet>
+                        <h:outputText value="#{product.id}" />
+                    </p:column>
+
+                    <p:column>
+                        <f:facet name="header">
+                            <h:outputText value="Name" />
+                        </f:facet>
+                        <h:outputText value="#{product.name}" />
+                    </p:column>
+
+                    <p:column>
+                        <f:facet name="header">
+                            <h:outputText value="Price" />
+                        </f:facet>
+                        <h:outputText value="#{product.price}" />
+                    </p:column>
+
+                    <p:column>
+                        <f:facet name="header">
+                            <h:outputText value="" />
+                        </f:facet>
+                        <h:commandLink value="View Details ..." immediate="true"
+                                       actionListener="#{productManager.select}"
+                                       action="select">
+                            <f:param name="selectedId" value="#{product.id}" />
+                        </h:commandLink>
+                    </p:column>
+
+                    <p:column>
+                        <f:facet name="header">
+                            <h:outputText value="Aktion" />
+                        </f:facet>
+
+                        <h:commandLink value="Remove from this category"
+                                       action="#{categoryManager.removeProduct(product)}" />
+                    </p:column>
+
+
+
+                </p:dataTable>
+            </h:form>
 		</ui:define>
 		
 		<ui:define name="pageFooter">JCatalog Footer</ui:define>

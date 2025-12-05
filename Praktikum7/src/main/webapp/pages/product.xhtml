@@ -1,43 +1,94 @@
 <?xml version="1.0" encoding="iso-8859-1" standalone="yes" ?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:f="http://xmlns.jcp.org/jsf/core"
-      xmlns:c="http://java.sun.com/jsp/jstl/core">
+      xmlns:p="http://primefaces.org/ui">
 
 <ui:composition template="/templates/common.xhtml">
 
-	<ui:define name="pageTitle">JCatalog Application</ui:define>
+    <ui:define name="pageTitle">JCatalog Application</ui:define>
 
-	<ui:define name="pageHeader">Login</ui:define>
+    <ui:define name="pageHeader">Product</ui:define>
 
-	<ui:define name="body">
-		<div style="width: 500px; padding: 5px; margin: 0px auto; float: left;">
-		<h:form>
-			<div class="row">
-				<label for="name">Name:</label>
-				<span class="formw"><h:inputText id="name" disabled="true" value="#{productManager.current.name}" accesskey="n" size="40" /></span>
-			</div>
-			<div class="row">
-				<label for="price">Price:</label>
-				<span class="formw"><h:inputText id="price" disabled="true" value="#{productManager.current.price}" accesskey="p" size="40" /></span>
-			</div>
-			<div class="row">
-				<label for="description">Description:</label>
-				<span class="formw"><h:inputTextarea rows="20" cols="40" id="description" disabled="true" value="#{productManager.current.description}" accesskey="d" /></span>
-			</div>
-			<div class="row">
-				<span class="formw">
-					<h:commandButton action="products" id="back" value="Back" type="submit" accesskey="b" />
-				</span>
-			</div>
-			<div class="spacer" />
-		</h:form>
-		</div>
-	</ui:define>
+    <ui:define name="body">
+        <div style="width: 600px; padding: 10px; margin: 10px auto; float: left;">
+            <h:form>
 
-	<ui:define name="pageFooter">JCatalog Footer</ui:define>
+                <!-- Nur nach Login darf editiert werden -->
+                <h:panelGroup rendered="#{userManager.loggedIn}">
+                    <div class="row">
+                        <label for="name">Name:</label>
+                        <span class="formw">
+                            <h:inputText id="name"
+                                         value="#{productManager.current.name}"
+                                         accesskey="n" size="40"/>
+                        </span>
+                    </div>
+
+                    <div class="row">
+                        <label for="price">Price:</label>
+                        <span class="formw">
+                            <h:inputText id="price"
+                                         value="#{productManager.current.price}"
+                                         accesskey="p" size="40"/>
+                        </span>
+                    </div>
+
+                    <div style="margin-top: 10px; margin-bottom: 10px;">
+                        <label for="categories">Categories:</label>
+                        <p:selectManyCheckbox value="#{productManager.selectedCategoryIds}">
+                            <f:selectItems value="#{categoryManager.allCategories}"
+                                           var="cat"
+                                           itemValue="#{cat.id}"
+                                           itemLabel="#{cat.name}" />
+                        </p:selectManyCheckbox>
+                    </div>
+
+                    <div >
+                        <label for="description">Description:</label>
+                        <span class="formw">
+                            <h:inputTextarea id="description" rows="20" cols="40"
+                                             value="#{productManager.current.description}"
+                                             accesskey="d"/>
+                        </span>
+                    </div>
+
+                    <div class="row">
+                        <span class="formw">
+                            <!-- Ruft Methoden, die intern redirecten -->
+                            <h:commandButton id="save" value="Save"
+                                             actionListener="#{productManager.save}"/>
+
+                            <h:commandButton id="delete" value="Delete"
+                                             rendered="#{not empty productManager.current.id}"
+                                             actionListener="#{productManager.delete}" update="productsTable" process="@this"/>
+
+                            <h:commandButton id="back" value="Back" action="products"/>
+                        </span>
+                    </div>
+                </h:panelGroup>
+
+                <!-- Meldung, wenn nicht eingeloggt -->
+                <h:panelGroup rendered="#{!userManager.loggedIn}">
+                    <h:outputText
+                            value="Bitte zuerst einloggen, um Produkte anzeigen oder bearbeiten zu können."/>
+                    <div class="row">
+                        <span class="formw">
+                            <h:commandButton id="back2" value="Back2"
+                                             action="products"/>
+                        </span>
+                    </div>
+                </h:panelGroup>
+
+                <div class="spacer"/>
+            </h:form>
+        </div>
+    </ui:define>
+
+    <ui:define name="pageFooter">JCatalog Footer</ui:define>
 
 </ui:composition>
 
