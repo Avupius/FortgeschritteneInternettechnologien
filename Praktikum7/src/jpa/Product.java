@@ -2,8 +2,7 @@ package jpa;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
-import java.util.Collection;
-import java.util.Set;
+import java.util.*;
 
 import jakarta.persistence.*;
 
@@ -11,7 +10,7 @@ import jakarta.persistence.*;
 @Table(name = "product")
 public class Product implements Serializable {
 	@Id
-	@GeneratedValue(strategy=GenerationType.SEQUENCE)
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private String id;
 
 	private String description;
@@ -29,7 +28,7 @@ public class Product implements Serializable {
                     name="product_category",
 		joinColumns=@JoinColumn(name="product_id"),
 		inverseJoinColumns=@JoinColumn(name="category_id"))
-	private Set<Category> categoryCollection;
+	private Set<Category> categories = new HashSet<>();
 
 	private static final long serialVersionUID = 1L;
 
@@ -85,17 +84,18 @@ public class Product implements Serializable {
 		this.height = height;
 	}
 
-    public Collection getCategories() {
-        return this.getCategoryCollection();
+    public Set<Category> getCategories() {
+        return categories;
     }
 
 	public Set<Category> getCategoryCollection() {
-		return this.categoryCollection;
+		return this.categories;
 	}
 
-	public void setCategoryCollection(Set<Category> categoryCollection) {
-		this.categoryCollection = categoryCollection;
-	}
+    public void setCategoryCollection(Set<Category> categories) {
+        this.categories = categories;
+    }
+
 
     public void addCategory(Category category)
     {

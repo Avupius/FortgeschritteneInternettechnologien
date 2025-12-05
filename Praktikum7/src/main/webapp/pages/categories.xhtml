@@ -13,7 +13,17 @@
 
     <ui:define name="body">
         <h:form id="categories">
-            <p:dataTable style="border: 1px;" id="categoriestable" value="#{categoryManager.categories}" var="category">
+
+            <!-- Neuer-Button nur nach Login -->
+            <h:panelGroup rendered="#{userManager.loggedIn}">
+                <h:commandButton value="New Category"
+                                 actionListener="#{categoryManager.createNewCategory()}" />
+                <br/><br/>
+            </h:panelGroup>
+
+            <p:dataTable style="border: 1px;" id="categoriestable"
+                         value="#{categoryManager.categories}" var="category">
+
                 <p:column>
                     <f:facet name="header">
                         <h:outputText value="Id" />
@@ -35,14 +45,31 @@
                     <h:outputText value="#{category.description}" />
                 </p:column>
 
+
+                <!-- alter View-Details-Link wie zuvor -->
                 <p:column>
                     <f:facet name="header">
                         <h:outputText value="" />
                     </f:facet>
-                    <h:commandLink value="View Details ..." immediate="true" actionListener="#{categoryManager.select}" action="select">
+                    <h:commandLink value="View Details ..." immediate="true"
+                                   actionListener="#{categoryManager.select}"
+                                   action="select">
                         <f:param name="selectedId" value="#{category.id}" />
                     </h:commandLink>
                 </p:column>
+
+                <!-- Delete-Spalte nur für eingeloggte -->
+                <p:column rendered="#{userManager.loggedIn}">
+                    <f:facet name="header">
+                        <h:outputText value="Delete" />
+                    </f:facet>
+                    <h:commandLink value="Delete"
+                                   immediate="true"
+                                   actionListener="#{categoryManager.delete}">
+                        <f:param name="selectedId" value="#{category.id}" />
+                    </h:commandLink>
+                </p:column>
+
             </p:dataTable>
         </h:form>
     </ui:define>

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="iso-8859-1" standalone="yes" ?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
@@ -15,23 +16,39 @@
 	<ui:define name="body">
 		<div style="width: 500px; padding: 5px; margin: 0px auto; float: left;">
 		<h:form>
-			<div class="row">
-				<label for="name">Name:</label>
-				<span class="formw"><h:inputText id="name" disabled="true" value="#{productManager.current.name}" accesskey="n" size="40" /></span>
-			</div>
-			<div class="row">
-				<label for="price">Price:</label>
-				<span class="formw"><h:inputText id="price" disabled="true" value="#{productManager.current.price}" accesskey="p" size="40" /></span>
-			</div>
-			<div class="row">
-				<label for="description">Description:</label>
-				<span class="formw"><h:inputTextarea rows="20" cols="40" id="description" disabled="true" value="#{productManager.current.description}" accesskey="d" /></span>
-			</div>
-			<div class="row">
-				<span class="formw">
-					<h:commandButton action="products" id="back" value="Back" type="submit" accesskey="b" />
-				</span>
-			</div>
+            <h:panelGroup rendered="#{userManager.loggedIn}">
+                <div class="row">
+                    <label for="name">Name:</label>
+                    <span class="formw"><h:inputText id="name" value="#{productManager.current.name}" accesskey="n" size="40" /></span>
+                </div>
+                <div class="row">
+                    <label for="price">Price:</label>
+                    <span class="formw"><h:inputText id="price" value="#{productManager.current.price}" accesskey="p" size="40" /></span>
+                </div>
+                <div class="row">
+                    <label for="description">Description:</label>
+                    <span class="formw"><h:inputTextarea rows="20" cols="40" id="description" value="#{productManager.current.description}" accesskey="d" /></span>
+                </div>
+                <div class="row">
+                    <span class="formw">
+                        <h:commandButton action="products" id="back" value="Back" type="submit" accesskey="b" />
+                        <h:commandButton id="save" value="Save" actionListener="#{productManager.save}"/>
+                        <h:commandButton id="delete" value="Delete" actionListener="#{productManager.delete}"/>
+                    </span>
+                </div>
+            </h:panelGroup>
+
+            <h:panelGroup rendered="#{!userManager.loggedIn}">
+                <h:outputText
+                        value="Bitte zuerst einloggen, um Produkte anzeigen oder bearbeiten zu können."/>
+                <div class="row">
+                        <span class="formw">
+                            <h:commandButton id="back2" value="Back"
+                                             action="products"/>
+                        </span>
+                </div>
+            </h:panelGroup>
+
 			<div class="spacer" />
 		</h:form>
 		</div>
